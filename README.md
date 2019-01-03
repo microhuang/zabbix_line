@@ -13,7 +13,7 @@ zabbix/etc/zabbix_server.conf
 
 查看CentOS系统字体
 ```
-fc-list
+#fc-list
 ....
 /usr/share/fonts/wqy-microhei/wqy-microhei.ttc: WenQuanYi Micro Hei Mono,文泉驛等寬微米黑:style=Regular
 ...

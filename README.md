@@ -19,3 +19,29 @@ zabbix/etc/zabbix_server.conf
 ...
 ```
 
+zabbix自定义agentd脚本部署
+```
+	1、zabbix_agentd服务配置文件zabbix_agentd.conf指定脚本配置文件所在位置:
+		Include=/etc/zabbix/zabbix_agentd.d/*.conf
+
+	2、编写、测试业务脚本
+		/usr/lib/zabbix/externalscripts/zbx_redis_template/zbx_redis_stats.py -a foobared -p 6379 192.168.1.89 used_cpu_user none
+
+	3、zabbix_agentd脚本配置文件指定key与shell映射关系：
+		#redis.discovery
+		UserParameter=redis.discovery,/usr/lib/zabbix/externalscripts/zbx_redis_template/zbx_redis_stats.py -p 6379 -a foobared localhost list_key_space_db
+		#redis[{HOSTNAME}, gcc_version, none]
+		UserParameter=redis[*],/usr/lib/zabbix/externalscripts/zbx_redis_template/zbx_redis_stats.py -p 6379 -a foobared $1 $2 $3
+		说明：
+			UserParameter=<key>,<shell command>  描述key与shell对应关系
+			[,] 使用逗号分隔key，可在<shell command>中使用$n获取
+			{HOSTNAME}宏变量  指代WEB配置时填写的”主机名称”，完整宏介绍：https://www.zabbix.com/documentation/3.0/manual/appendix/macros/supported_by_location#footnotes
+
+	4、测试脚本在zabbix_agentd执行效果：
+		zabbix_agentd -t "redis[192.168.1.89, used_cpu_user, none]" -c /etc/zabbix/zabbix_agentd.conf
+
+	5、编写.xml模版定义文件(模版必须导入以便使用)（略）
+
+	6、WEB配置中对key进行应用，对模版进行链接。
+  ```
+

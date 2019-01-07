@@ -14,9 +14,9 @@ import logging
 
 import edata
 
-corpid=edata.corpid
-appsecret=edata.appsecret
-agentid=edata.agentid
+corpid=edata.corpid#微信企业ID
+appsecret=edata.appsecret#微信应用KEY
+agentid=edata.agentid#微信应用ID
 
 logging.basicConfig(level = logging.DEBUG, format = '%(asctime)s, %(filename)s, %(levelname)s, %(message)s',
                 datefmt = '%a, %d %b %Y %H:%M:%S',
@@ -37,8 +37,8 @@ subject=sys.argv[2]
 message=sys.argv[3]
 
 params={
-        "touser": touser,
-#       "toparty": toparty,
+        "touser": touser,#企业微信号
+#       "toparty": toparty,#企业微信部门
         "msgtype": "text",
         "agentid": agentid,
         "text": {

@@ -12,15 +12,20 @@ import os
 import json
 import logging
 
+#===============config==============
+
 import edata
 
 corpid=edata.corpid#微信企业ID
 appsecret=edata.appsecret#微信应用KEY
 agentid=edata.agentid#微信应用ID
 
+log_path='/tmp/'
+#===================================
+
 logging.basicConfig(level = logging.DEBUG, format = '%(asctime)s, %(filename)s, %(levelname)s, %(message)s',
                 datefmt = '%a, %d %b %Y %H:%M:%S',
-                filename = os.path.join('/tmp/','weixin.log'),
+                filename = os.path.join(log_path,'weixin.log'),
                 filemode = 'a')
 
 #获取accesstoken

@@ -37,13 +37,14 @@ accesstoken=req.json()['access_token']
 msgsend_url='https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=' + accesstoken
 
 touser=sys.argv[1]
-subject=sys.argv[2]
 #toparty='3|4|5|6'
-message=sys.argv[3]
+toparty=sys.argv[2]
+subject=sys.argv[3]
+message=sys.argv[4]
 
 params={
         "touser": touser,#企业微信号
-#       "toparty": toparty,#企业微信部门
+        "toparty": toparty,#企业微信部门
         "msgtype": "text",
         "agentid": agentid,
         "text": {
@@ -51,6 +52,13 @@ params={
         },
         "safe":0
 }
+
+if not touser and not toparty:
+  raise Exception('缺少参数！')
+if not touser:
+  del(params['touser'])
+if not toparty:
+  del(params['toparty'])
 
 req=requests.post(msgsend_url, data=json.dumps(params))
 

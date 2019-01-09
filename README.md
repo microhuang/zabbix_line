@@ -35,7 +35,7 @@ zabbix自定义agentd脚本部署
 		说明：
 			UserParameter=<key>,<shell command>  描述key与shell对应关系
 			[,] 使用逗号分隔key，可在<shell command>中使用$n获取
-			{HOSTNAME}宏变量  指代WEB配置时填写的”主机名称”，完整宏介绍：https://www.zabbix.com/documentation/3.0/manual/appendix/macros/supported_by_location#footnotes
+			{HOSTNAME}宏变量  指代WEB配置“主机”时填写的”主机名称”，完整宏介绍：https://www.zabbix.com/documentation/3.0/manual/appendix/macros/supported_by_location#footnotes
 
 	4、测试脚本在zabbix_agentd执行效果：
 		zabbix_agentd -t "redis[192.168.1.89, used_cpu_user, none]" -c /etc/zabbix/zabbix_agentd.conf

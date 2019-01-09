@@ -60,6 +60,6 @@ if not touser:
 if not toparty:
   del(params['toparty'])
 
-req=requests.post(msgsend_url, data=json.dumps(params))
+req=requests.post(msgsend_url, data=json.dumps(params, ensure_ascii=False))
 
 logging.info('sendto:' + touser + ';;subject:' + subject + ';;message:' + message)

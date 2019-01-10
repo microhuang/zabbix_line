@@ -25,13 +25,13 @@ zabbix自定义agentd脚本部署
 		Include=/etc/zabbix/zabbix_agentd.d/*.conf
 
 	2、编写、测试业务脚本
-		/usr/lib/zabbix/externalscripts/zbx_redis_template/zbx_redis_stats.py -a foobared -p 6379 192.168.1.89 used_cpu_user none
+		/etc/zabbix/zabbix_agentd.d/zbx_redis_template/zbx_redis_stats.py -a foobared -p 6379 192.168.1.89 used_cpu_user none
 
 	3、zabbix_agentd脚本配置文件指定key与shell映射关系：
 		#redis.discovery
-		UserParameter=redis.discovery,/usr/lib/zabbix/externalscripts/zbx_redis_template/zbx_redis_stats.py -p 6379 -a foobared localhost list_key_space_db
+		UserParameter=redis.discovery,/etc/zabbix/zabbix_agentd.d/zbx_redis_template/zbx_redis_stats.py -p 6379 -a foobared localhost list_key_space_db
 		#redis[{HOSTNAME}, gcc_version, none]
-		UserParameter=redis[*],/usr/lib/zabbix/externalscripts/zbx_redis_template/zbx_redis_stats.py -p 6379 -a foobared $1 $2 $3
+		UserParameter=redis[*],/etc/zabbix/zabbix_agentd.d/zbx_redis_template/zbx_redis_stats.py -p 6379 -a foobared $1 $2 $3
 		说明：
 			UserParameter=<key>,<shell command>  描述key与shell对应关系
 			[,] 使用逗号分隔key，可在<shell command>中使用$n获取
@@ -44,4 +44,23 @@ zabbix自定义agentd脚本部署
 
 	6、WEB配置中对key进行应用，对模版进行链接。
   ```
+  
+zabbix自定义server报警脚本部署
+```
+	动作
+		标题
+		内容
+		zabbix users\groups
+		报警媒介
+	zabbix user
+		收件人（企业微信号、企业微信组)
+		报警媒介
+	zabbix group
+		zabbix user
+
+	1、报警媒介脚本位置zabbix_server.conf：
+		AlertScriptsPath=/usr/lib/zabbix/alertscripts
+
+	2、给与执行权限
+```
 

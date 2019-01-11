@@ -45,9 +45,9 @@ message=sys.argv[4]
 params={
         "touser": touser,#企业微信号
         "toparty": toparty,#企业微信部门
-        "msgtype": "text",
+        "msgtype": "markdown",
         "agentid": agentid,
-        "text": {
+        "markdown": {
                 "content": message
         },
         "safe":0
